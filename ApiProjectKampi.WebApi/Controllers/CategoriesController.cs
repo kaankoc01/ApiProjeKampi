@@ -15,9 +15,11 @@ namespace ApiProjectKampi.WebApi.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public IActionResult CategoryList()
         {
-            return Ok(_context.Categories);
+            var values = _context.Categories.ToList();
+            return Ok(values);
+
         }
         [HttpGet("{id}")]
         public IActionResult GetByIdCategory(int id)
@@ -39,23 +41,18 @@ namespace ApiProjectKampi.WebApi.Controllers
         [HttpPut]
         public IActionResult UpdateCategory(Category category)
         {
-            var updatedCategory = _context.Categories.Find(category.CategoryId);
-            if (updatedCategory == null)
-            {
-                return NotFound("Category not found");
-            }
-            updatedCategory.CategoryName = category.CategoryName;
+            _context.Categories.Update(category);
             _context.SaveChanges();
-            return NoContent();
+            return Ok("Kategori güncelleme işlemi başarılı.");
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult DeleteCategory(int id)
         {
             var category = _context.Categories.Find(id);
-            if (category == null)
-            {
-                return NotFound("Category not found");
-            }
+            //if (category == null)
+            //{
+            //    return NotFound("Category not found");
+            //}
             _context.Categories.Remove(category);
             _context.SaveChanges();
             return NoContent();
