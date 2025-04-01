@@ -16,6 +16,7 @@ namespace ApiProjectKampi.WebApi.ValidationRules
                 .GreaterThan(1000).WithMessage("Ürün fiyatı Bu kadar yüksek olamaz girdiğiniz değeri kontrol ediniz.");
 
             RuleFor(p => p.ProductDescription).NotEmpty().WithMessage("Ürün açıklaması boş geçilemez");
+
         }
     }
 }
